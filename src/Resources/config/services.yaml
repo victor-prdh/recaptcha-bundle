@@ -1,0 +1,7 @@
+services:
+  victor_prdh_recaptcha_bundle.response_subscriber:
+    class: VictorPrdh\RecaptchaBundle\EventSubscriber\ResponseSubscriber
+    arguments:
+      $parameterBag: "@parameter_bag"
+    tags:
+      - { name: kernel.event_subscriber }
