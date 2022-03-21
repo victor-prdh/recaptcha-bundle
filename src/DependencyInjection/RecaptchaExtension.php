@@ -20,7 +20,7 @@ class RecaptchaExtension extends Extension
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
         foreach ($config as $key => $value) {
-            $container->setParameter('recaptcha.' . $key, $value);
+            $container->setParameter('victor_prdh_recaptcha.' . $key, $value);
         }
         $resources = $container->getParameter('twig.form.resources');
         $container->setParameter(
