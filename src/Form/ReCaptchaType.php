@@ -73,7 +73,8 @@ class ReCaptchaType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver
-            ->setDefault('type', 'invisible')
+            ->setDefault('type', 'checkbox')
+            ->setDefault('mapped', false)
             ->setAllowedValues('type', ['checkbox', 'invisible']);
     }
 }
