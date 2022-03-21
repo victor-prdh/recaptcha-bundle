@@ -6,6 +6,7 @@ use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
+use Symfony\Config\TwigConfig;
 
 /**
  * RecaptchaExtension
@@ -27,7 +28,6 @@ class RecaptchaExtension extends Extension
             array_merge(array('@Recaptcha/form/recaptcha.html.twig'), $resources)
         );
 
-        //dd($container->getParameter('twig.form.resources'));
     }
 
 }

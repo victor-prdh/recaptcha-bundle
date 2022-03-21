@@ -52,6 +52,7 @@ class ReCaptchaType extends AbstractType
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
         $view->vars['type'] = $options['type'];
+        $view->vars['google_site_key'] = $this->parameterBag->get('recaptcha.google_site_key');
     }
 
     /**

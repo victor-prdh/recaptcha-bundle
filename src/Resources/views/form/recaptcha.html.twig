@@ -20,7 +20,7 @@
             var form = widget.closest('form');
             var widgetType = widget.getAttribute('data-type');
             var widgetParameters = {
-                'sitekey': '6LdP88oeAAAAAPWygjYIzBRZ0N1B3hoIN77yMh0H'
+                'sitekey': '{{ google_site_key }}'
             };
             if (widgetType == 'invisible') {
                 widgetParameters['callback'] = function () {
