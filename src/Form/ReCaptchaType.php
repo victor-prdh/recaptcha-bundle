@@ -35,7 +35,7 @@ class ReCaptchaType extends AbstractType
     public function __construct(ParameterBagInterface $parameterBag)
     {
         $this->parameterBag = $parameterBag;
-        $this->reCaptcha = new ReCaptcha($this->parameterBag->get('recaptcha.google_site_key'));
+        $this->reCaptcha = new ReCaptcha($this->parameterBag->get('recaptcha.google_secret_key'));
     }
 
     /**

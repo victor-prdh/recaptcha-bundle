@@ -33,6 +33,8 @@ class ReCaptchaBundleValidationListener implements EventSubscriberInterface
             ->setExpectedHostname($request->getHost())
             ->verify($request->request->get('g-recaptcha-response'), $request->getClientIp());
 
+
+
         if (!$result->isSuccess()) {
             $event->getForm()->addError(new FormError('Merci de saisir le captcha.'));
         }

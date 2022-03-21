@@ -15,8 +15,7 @@ services:
     tags:
       - { name: form.type, alias: captcha }
 
-  recaptcha.recaptcha:
-    class: ReCaptcha\ReCaptcha
-    arguments:
-      $secret: '%recaptcha.secret%'
+  ReCaptcha\ReCaptcha:
+        arguments:
+            - '%env(GOOGLE_RECAPTCHA_SECRET_KEY)%'
   
