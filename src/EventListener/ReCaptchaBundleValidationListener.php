@@ -2,6 +2,7 @@
 
 namespace VictorPrdh\RecaptchaBundle\EventListener;
 
+use LogicException;
 use ReCaptcha\ReCaptcha;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\FormError;
@@ -33,10 +34,39 @@ class ReCaptchaBundleValidationListener implements EventSubscriberInterface
             ->setExpectedHostname($request->getHost())
             ->verify($request->request->get('g-recaptcha-response'), $request->getClientIp());
 
+        if(in_array('missing-input-response', $result->getErrorCodes())) {
+            $event->getForm()->addError(new FormError('Merci de vérifier le captcha.'));
+            return;
+        }
 
+        if(in_array('invalid-input-response', $result->getErrorCodes())) {
+            $event->getForm()->addError(new FormError('Le captcha n\'est pas vailde, merci de réessayer.'));
+            return;
+        }
+
+        if(in_array('timeout-or-duplicate', $result->getErrorCodes())) {
+            $event->getForm()->addError(new FormError('Le captcha n\'est plus vailde, merci de réessayer.'));
+            return;
+        }
+
+        if(in_array('missing-input-secret', $result->getErrorCodes())) {
+            throw new LogicException("Clé secrète non renseigné");
+        }
+
+        if(in_array('hostname-mismatch', $result->getErrorCodes())) {
+            throw new LogicException("Nom d'hôte invalide");
+        }
+
+        if(in_array('invalid-input-secret', $result->getErrorCodes())) {
+            throw new LogicException("Clé secrète invalide");
+        }
+
+        if(in_array('bad-request', $result->getErrorCodes())) {
+            throw new LogicException("La demande n'a pas pu aboutir.");
+        }
 
         if (!$result->isSuccess()) {
-            $event->getForm()->addError(new FormError('Merci de saisir le captcha.'));
+            $event->getForm()->addError(new FormError('Le captcha n\'est pas valide, merci de réessayer.'));
         }
     }
 }
