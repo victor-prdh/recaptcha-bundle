@@ -21,5 +21,13 @@ class RecaptchaExtension extends Extension
         foreach ($config as $key => $value) {
             $container->setParameter('recaptcha.' . $key, $value);
         }
+        $resources = $container->getParameter('twig.form.resources');
+        $container->setParameter(
+            'twig.form.resources',
+            array_merge(array('@Recaptcha/form/recaptcha.html.twig'), $resources)
+        );
+
+        //dd($container->getParameter('twig.form.resources'));
     }
+
 }
