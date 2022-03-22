@@ -11,6 +11,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * Class ReCaptchaType.
@@ -28,13 +29,19 @@ class ReCaptchaType extends AbstractType
     private ParameterBagInterface $parameterBag;
 
     /**
+     * @var ParameterBagInterface
+     */
+    private TranslatorInterface $translator;
+
+    /**
      * ReCaptchaType constructor.
      *
      * @param ReCaptcha $reCaptcha
      */
-    public function __construct(ParameterBagInterface $parameterBag)
+    public function __construct(ParameterBagInterface $parameterBag, TranslatorInterface $translator)
     {
         $this->parameterBag = $parameterBag;
+        $this->translator =$translator;
         $this->reCaptcha = new ReCaptcha($this->parameterBag->get('victor_prdh_recaptcha.google_secret_key'));
     }
 
@@ -43,7 +50,7 @@ class ReCaptchaType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->addEventSubscriber(new ReCaptchaBundleValidationListener($this->reCaptcha));
+        $builder->addEventSubscriber(new ReCaptchaBundleValidationListener($this->reCaptcha, $this->translator));
     }
     
     /**

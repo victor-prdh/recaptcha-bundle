@@ -3,6 +3,7 @@ services:
     class: VictorPrdh\RecaptchaBundle\Form\ReCaptchaType
     arguments:
       $parameterBag: "@parameter_bag"
+      $translator: "@translator"
     public: true
     autowire: true
     tags:
