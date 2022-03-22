@@ -75,6 +75,8 @@ class TaskType extends AbstractType
 }
 ```
 
+### Display error on your Twig view
+
 Once you create the form, you render it as usual with Symfony. You can show it in your twig file like that:
 ```twig
 {{ form_start(form) }}
