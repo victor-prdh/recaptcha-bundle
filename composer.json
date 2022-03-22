@@ -19,5 +19,10 @@
             "name": "Victor Prudhomme",
             "email": "contact@victor-prdh.com"
         }
-    ]
+    ],
+    "extra": {
+        "symfony": {
+          "allow-contrib": "true"
+        }
+    }
 }
