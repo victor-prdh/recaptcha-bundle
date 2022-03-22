@@ -5,7 +5,8 @@
     "require": {
         "php": ">=7.4",
         "google/recaptcha": "^1.2",
-        "symfony/framework-bundle": "^5.4",
+        "symfony/framework-bundle": "^5.4|^6.0",
+        "symfony/form": "^5.4|^6.0",
         "symfony/twig-pack": "^1.0"
     },
     "autoload": {
