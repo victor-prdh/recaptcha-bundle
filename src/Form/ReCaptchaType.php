@@ -2,6 +2,7 @@
 
 namespace VictorPrdh\RecaptchaBundle\Form;
 
+use LogicException;
 use VictorPrdh\RecaptchaBundle\EventListener\ReCaptchaBundleValidationListener;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
@@ -10,8 +11,12 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Callback;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use VictorPrdh\RecaptchaBundle\Validator\Constraints\IsValidCaptcha;
 
 /**
  * Class ReCaptchaType.
@@ -28,29 +33,16 @@ class ReCaptchaType extends AbstractType
      */
     private ParameterBagInterface $parameterBag;
 
-    /**
-     * @var ParameterBagInterface
-     */
-    private TranslatorInterface $translator;
 
     /**
      * ReCaptchaType constructor.
      *
      * @param ReCaptcha $reCaptcha
      */
-    public function __construct(ParameterBagInterface $parameterBag, TranslatorInterface $translator)
+    public function __construct(ParameterBagInterface $parameterBag)
     {
         $this->parameterBag = $parameterBag;
-        $this->translator =$translator;
         $this->reCaptcha = new ReCaptcha($this->parameterBag->get('victor_prdh_recaptcha.google_secret_key'));
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
-        $builder->addEventSubscriber(new ReCaptchaBundleValidationListener($this->reCaptcha, $this->translator));
     }
     
     /**
@@ -83,6 +75,8 @@ class ReCaptchaType extends AbstractType
         $resolver
             ->setDefault('type', 'checkbox')
             ->setDefault('mapped', false)
+            ->setDefault('error_bubbling', false)
+            ->setDefault('constraints',new IsValidCaptcha())
             ->setAllowedValues('type', ['checkbox', 'invisible']);
     }
 }
