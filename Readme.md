@@ -12,15 +12,17 @@ Use [composer](https://getcomposer.org) to install this bundle.
 ```bash
 composer require victor-prdh/recaptcha-bundle
 ```
+### With Symfony flex
 
 You can quickly configure this bundle by using symfony/flex:
 - answer **no** for `google/recaptcha` 
+- answer **yes** for `victor-prdh/recaptcha-bundle` 
+
 
 If everything is good, you must have the bundle registred in the *"bundles.php"* file of your config folder (*"config/bundles.php"*):
 ```php 
 //config/bunldes.php
 <?php
-
 return [
     ...
     VictorPrdh\RecaptchaBundle\RecaptchaBundle::class => ['all' => true]
@@ -28,7 +30,11 @@ return [
 ```
 Just add it if you dont see this line.
 
-The recipe for this specific bundle is gonna be created asap. For the moment you can create a *"recaptcha.yaml"* file in your config folder (*"config/packages/recaptcha.yaml"*): 
+You can directly go to [Usage section](#Usage)
+
+### Without Symfony flex
+
+If you don't want / you can't  use the flex recipe you can create a *"recaptcha.yaml"* file in your config folder (*"config/packages/recaptcha.yaml"*): 
 
 ```yaml
 #config/packages/recaptcha.yaml
@@ -84,7 +90,7 @@ Once you create the form, you render it as usual with Symfony. You can show it i
     {{ form_row(form.recaptcha) }} 
     {# must be the same name of this put on the FormBuilder #}
 
-    {{ form_errors(form) }}
+    {{ form_errors(form.recaptcha) }}
     {# That will display the error of the captcha to user #}
 
 {{ form_end(form) }}
