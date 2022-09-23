@@ -2,24 +2,20 @@
 
 namespace VictorPrdh\RecaptchaBundle\Form;
 
-use LogicException;
-use VictorPrdh\RecaptchaBundle\EventListener\ReCaptchaBundleValidationListener;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use ReCaptcha\ReCaptcha;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
-use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\Callback;
-use Symfony\Component\Validator\Context\ExecutionContextInterface;
-use Symfony\Contracts\Translation\TranslatorInterface;
 use VictorPrdh\RecaptchaBundle\Validator\Constraints\IsValidCaptcha;
 
 /**
  * Class ReCaptchaType.
+ * 
+ * 
+ * @author Victor Prudhomme <contact@victor-prdh.com>
  */
 class ReCaptchaType extends AbstractType
 {
@@ -37,7 +33,7 @@ class ReCaptchaType extends AbstractType
     /**
      * ReCaptchaType constructor.
      *
-     * @param ReCaptcha $reCaptcha
+     * @param ParameterBagInterface $parameterBag
      */
     public function __construct(ParameterBagInterface $parameterBag)
     {
