@@ -77,6 +77,9 @@ class TaskType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add("recaptcha", ReCaptchaType::class);
+
+        // If you want an "invisible" recaptcha protection use this:
+        // $builder->add("recaptcha", ReCaptchaType::class, ["type" => "invisible"]);
     }
 }
 ```
