@@ -1,9 +1,9 @@
 {
     "name": "victor-prdh/recaptcha-bundle",
-    "description": "Use Google Recaptcha v2 as form type with Symfony 5.4+",
+    "description": "Use Google Recaptcha v2/v3 as form type with Symfony 5.4+",
     "type": "symfony-bundle",
     "require": {
-        "php": ">=7.4",
+        "php": ">=7.2.5",
         "google/recaptcha": "^1.2",
         "symfony/framework-bundle": "^5.4|^6.0",
         "symfony/form": "^5.4|^6.0",
