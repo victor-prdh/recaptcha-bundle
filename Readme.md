@@ -1,5 +1,7 @@
 # VictorPrdhRecaptchaBundle
 
+![bundle version](https://img.shields.io/badge/version-1.7-blue)
+
 Easy implementation of Google Recaptcha with symfony.
 
 ## Installation
