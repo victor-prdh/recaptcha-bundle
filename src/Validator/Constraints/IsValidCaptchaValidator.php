@@ -37,7 +37,7 @@ class IsValidCaptchaValidator extends ConstraintValidator
         $this->translator = $translator;
     }
 
-    public function validate($value, Constraint $constraint)
+    public function validate($value, Constraint $constraint) :RequestContext
     {
         $request = $this->requestStack->getMainRequest();
         $result = $this->reCaptcha
@@ -69,7 +69,7 @@ class IsValidCaptchaValidator extends ConstraintValidator
             }
 
             if (!$result->isSuccess()) {
-                $this->context->addViolation($this->translator->trans('invalid.captcha', array(), 'victorprdh_recaptcha'));
+                return $this->context->addViolation($this->translator->trans('invalid.captcha', array(), 'victorprdh_recaptcha'));
             }
     }
 }

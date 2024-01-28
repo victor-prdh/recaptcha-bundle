@@ -44,7 +44,7 @@ class ReCaptchaType extends AbstractType
     /**
      * @inheritDoc
      */
-    public function buildView(FormView $view, FormInterface $form, array $options)
+    public function buildView(FormView $view, FormInterface $form, array $options) :void
     {
         $view->vars['type'] = $options['type'];
         $view->vars['google_site_key'] = $this->parameterBag->get('victor_prdh_recaptcha.google_site_key');
@@ -66,7 +66,7 @@ class ReCaptchaType extends AbstractType
     /**
      * @inheritDoc
      */
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver) :void
     {
         $resolver
             ->setDefault('type', 'checkbox')
