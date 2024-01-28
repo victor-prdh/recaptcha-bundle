@@ -37,7 +37,7 @@ class IsValidCaptchaValidator extends ConstraintValidator
         $this->translator = $translator;
     }
 
-    public function validate($value, Constraint $constraint) :RequestContext
+    public function validate($value, Constraint $constraint) :void
     {
         $request = $this->requestStack->getMainRequest();
         $result = $this->reCaptcha
