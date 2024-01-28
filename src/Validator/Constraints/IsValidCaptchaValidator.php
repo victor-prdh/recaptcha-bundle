@@ -45,7 +45,7 @@ class IsValidCaptchaValidator extends ConstraintValidator
             ->verify($request->request->get('g-recaptcha-response'), $request->getClientIp());
 
             if(in_array('missing-input-response', $result->getErrorCodes())) {
-                return $this->context->addViolation($this->translator->trans('verify.captcha', array(), 'victorprdh_recaptcha'));
+                $this->context->addViolation($this->translator->trans('verify.captcha', array(), 'victorprdh_recaptcha'));
             }
 
             if(in_array('timeout-or-duplicate', $result->getErrorCodes())) {
@@ -69,7 +69,7 @@ class IsValidCaptchaValidator extends ConstraintValidator
             }
 
             if (!$result->isSuccess()) {
-                return $this->context->addViolation($this->translator->trans('invalid.captcha', array(), 'victorprdh_recaptcha'));
+                $this->context->addViolation($this->translator->trans('invalid.captcha', array(), 'victorprdh_recaptcha'));
             }
     }
 }
