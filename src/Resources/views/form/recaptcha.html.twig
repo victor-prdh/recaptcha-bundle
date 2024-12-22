@@ -1,7 +1,7 @@
 {# @Recaptcha/form/recaptcha.html.twig #}
 
 {% block recaptcha_widget %}
-    {% apply spaceless %}
+    {#% apply spaceless %#}
         <div id="{{ id }}" data-toggle="recaptcha" data-type="{{ type }}">  
         </div>
         <script type="text/javascript">
@@ -61,5 +61,5 @@
     </script>
     <script type="text/javascript" src="https://www.google.com/recaptcha/api.js?onload=onGoogleReCaptchaApiLoad&render=explicit&hl={{app.request.locale}}" async defer></script>
 
-    {% endapply %}
+    {#% endapply %#}
 {% endblock %}
