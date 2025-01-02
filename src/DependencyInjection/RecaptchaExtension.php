@@ -1,18 +1,19 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace VictorPrdh\RecaptchaBundle\DependencyInjection;
 
+use Exception;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 
-/**
- * RecaptchaExtension
- */
-class RecaptchaExtension extends Extension
+final class RecaptchaExtension extends Extension
 {
-    public function load(array $configs, ContainerBuilder $container) :void
+    /**
+     * @throws Exception
+     */
+    public function load(array $configs, ContainerBuilder $container): void
     {
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.yaml');
@@ -28,7 +29,10 @@ class RecaptchaExtension extends Extension
 
         $container->setParameter(
             'twig.form.resources',
-            array_merge(array('@Recaptcha/form/recaptcha.html.twig'), $resources)
+            [
+                '@Recaptcha/form/recaptcha.html.twig',
+                ...$resources,
+            ],
         );
     }
 }

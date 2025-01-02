@@ -1,12 +1,9 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace VictorPrdh\RecaptchaBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-/**
- * RecaptchaBundle
- */
-class RecaptchaBundle extends Bundle
+final class RecaptchaBundle extends Bundle
 {
 }
