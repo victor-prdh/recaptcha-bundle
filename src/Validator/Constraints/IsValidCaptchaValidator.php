@@ -40,7 +40,9 @@ class IsValidCaptchaValidator extends ConstraintValidator
         }
 
         if (in_array('hostname-mismatch', $result->getErrorCodes())) {
-            throw new LogicException($this->translator->trans('hostname.captcha', [], 'victorprdh_recaptcha'));
+            throw new LogicException($this->translator->trans('hostname.captcha', [
+                '%hostname%' => $request->getHost(),
+            ], 'victorprdh_recaptcha'));
         }
 
         if (in_array('invalid-input-secret', $result->getErrorCodes())) {
