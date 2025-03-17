@@ -20,8 +20,10 @@ class IsValidCaptchaValidator extends ConstraintValidator
     ) {
     }
 
-    public function validate($value, Constraint $constraint): void
+    public function validate(mixed $value, Constraint $constraint): void
     {
+        $hasViolation = false;
+
         $request = $this->requestStack->getMainRequest();
         $result = $this->reCaptcha
             ->setExpectedHostname($request->getHost())
@@ -29,10 +31,12 @@ class IsValidCaptchaValidator extends ConstraintValidator
 
         if (in_array('missing-input-response', $result->getErrorCodes())) {
             $this->context->addViolation($this->translator->trans('verify.captcha', [], 'victorprdh_recaptcha'));
+            $hasViolation = true;
         }
 
         if (in_array('timeout-or-duplicate', $result->getErrorCodes())) {
             $this->context->addViolation($this->translator->trans('timeout.captcha', [], 'victorprdh_recaptcha'));
+            $hasViolation = true;
         }
 
         if (in_array('missing-input-secret', $result->getErrorCodes())) {
@@ -53,7 +57,7 @@ class IsValidCaptchaValidator extends ConstraintValidator
             throw new LogicException($this->translator->trans('badrequest.captcha', [], 'victorprdh_recaptcha'));
         }
 
-        if (!$result->isSuccess()) {
+        if (false === $result->isSuccess() && false === $hasViolation) {
             $this->context->addViolation($this->translator->trans('invalid.captcha', [], 'victorprdh_recaptcha'));
         }
     }

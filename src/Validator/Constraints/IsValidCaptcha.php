@@ -12,5 +12,5 @@ use Symfony\Component\Validator\Constraint;
 #[Attribute(Attribute::TARGET_PROPERTY | Attribute::TARGET_METHOD | Attribute::IS_REPEATABLE)]
 class IsValidCaptcha extends Constraint
 {
-    public $message = 'This value is not a valid captcha.';
+    public string $message = 'This value is not a valid captcha.';
 }
