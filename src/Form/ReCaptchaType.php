@@ -2,7 +2,6 @@
 
 namespace VictorPrdh\RecaptchaBundle\Form;
 
-use ReCaptcha\ReCaptcha;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
