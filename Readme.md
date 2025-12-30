@@ -1,13 +1,13 @@
 # VictorPrdhRecaptchaBundle
 
-![bundle version](https://img.shields.io/badge/version-1.7.1-blue)
+![bundle version](https://img.shields.io/badge/version-2.1.0-blue)
 
 Easy implementation of Google Recaptcha with symfony.
 
 ## Installation
 
 Before starting the bundle installation, you need to register reCAPTCHA keys
-[here](https://g.co/recaptcha/v3).
+[here](https://www.google.com/recaptcha/admin/create?hl=fr).
 
 Use [composer](https://getcomposer.org) to install this bundle.
 
