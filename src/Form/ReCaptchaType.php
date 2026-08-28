@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace VictorPrdh\RecaptchaBundle\Form;
 
@@ -10,6 +12,9 @@ use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use VictorPrdh\RecaptchaBundle\Validator\Constraints\IsValidCaptcha;
 
+/**
+ * @extends AbstractType<mixed>
+ */
 class ReCaptchaType extends AbstractType
 {
     public function __construct(

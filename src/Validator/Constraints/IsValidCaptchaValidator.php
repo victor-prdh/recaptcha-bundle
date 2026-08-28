@@ -1,18 +1,19 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace VictorPrdh\RecaptchaBundle\Validator\Constraints;
 
-use LogicException;
 use ReCaptcha\ReCaptcha;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
+use Symfony\Component\Validator\Exception\UnexpectedValueException;
 use Symfony\Contracts\Translation\TranslatorInterface;
-use function in_array;
 
 class IsValidCaptchaValidator extends ConstraintValidator
 {
-
     public function __construct(
         private readonly ReCaptcha $reCaptcha,
         private readonly RequestStack $requestStack,
@@ -25,36 +26,39 @@ class IsValidCaptchaValidator extends ConstraintValidator
         $hasViolation = false;
 
         $request = $this->requestStack->getMainRequest();
+
+        if (null === $request) {
+            throw new UnexpectedValueException($request, Request::class);
+        }
+
         $result = $this->reCaptcha
             ->setExpectedHostname($request->getHost())
-            ->verify($request->request->get('g-recaptcha-response'), $request->getClientIp());
+            ->verify((string) $request->request->get('g-recaptcha-response'), $request->getClientIp());
 
-        if (in_array('missing-input-response', $result->getErrorCodes())) {
+        if (\in_array('missing-input-response', $result->getErrorCodes())) {
             $this->context->addViolation($this->translator->trans('verify.captcha', [], 'victorprdh_recaptcha'));
             $hasViolation = true;
         }
 
-        if (in_array('timeout-or-duplicate', $result->getErrorCodes())) {
+        if (\in_array('timeout-or-duplicate', $result->getErrorCodes())) {
             $this->context->addViolation($this->translator->trans('timeout.captcha', [], 'victorprdh_recaptcha'));
             $hasViolation = true;
         }
 
-        if (in_array('missing-input-secret', $result->getErrorCodes())) {
-            throw new LogicException($this->translator->trans('missinginput.captcha', [], 'victorprdh_recaptcha'));
+        if (\in_array('missing-input-secret', $result->getErrorCodes())) {
+            throw new \LogicException($this->translator->trans('missinginput.captcha', [], 'victorprdh_recaptcha'));
         }
 
-        if (in_array('hostname-mismatch', $result->getErrorCodes())) {
-            throw new LogicException($this->translator->trans('hostname.captcha', [
-                '%hostname%' => $request->getHost(),
-            ], 'victorprdh_recaptcha'));
+        if (\in_array('hostname-mismatch', $result->getErrorCodes())) {
+            throw new \LogicException($this->translator->trans('hostname.captcha', ['%hostname%' => $request->getHost()], 'victorprdh_recaptcha'));
         }
 
-        if (in_array('invalid-input-secret', $result->getErrorCodes())) {
-            throw new LogicException($this->translator->trans('invalidinput.captcha', [], 'victorprdh_recaptcha'));
+        if (\in_array('invalid-input-secret', $result->getErrorCodes())) {
+            throw new \LogicException($this->translator->trans('invalidinput.captcha', [], 'victorprdh_recaptcha'));
         }
 
-        if (in_array('bad-request', $result->getErrorCodes())) {
-            throw new LogicException($this->translator->trans('badrequest.captcha', [], 'victorprdh_recaptcha'));
+        if (\in_array('bad-request', $result->getErrorCodes())) {
+            throw new \LogicException($this->translator->trans('badrequest.captcha', [], 'victorprdh_recaptcha'));
         }
 
         if (false === $result->isSuccess() && false === $hasViolation) {
